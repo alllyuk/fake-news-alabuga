@@ -6,6 +6,7 @@ from datetime import date, timedelta, datetime
 import pandas as pd
 from fake_useragent import UserAgent
 
+
 class PanoramaParser:
     def get_links_from_feed(self, date):
         url = f'https://panorama.pub/news/{date}'
