@@ -4,6 +4,7 @@ from datetime import datetime, timedelta
 from fake_useragent import UserAgent
 import logging
 
+
 class LentaParser:
     def _get_url(self, param_dict: dict) -> str:
         url = 'https://lenta.ru/search/v2/process?' \
