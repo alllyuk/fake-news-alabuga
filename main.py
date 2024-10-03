@@ -5,12 +5,13 @@ from utils import vectorize
 from transformers import AutoModelForSequenceClassification
 
 
-def check_text(input, option, model):
+def check_text(input, model):
     text_news = vectorize(pd.Series([clean_text(str(input))], name='text'))
     pred = model.predict_proba(text_news)
     return pred[0][0]
 
-def run_model(option: str):
+
+def run_model(input: str, option: str):
     if option == "Logistic Regression":
         model = pickle.load(open('./models/logreg.pkl', 'rb'))
     elif option == "Random Forest Classifier":
@@ -24,16 +25,21 @@ def run_model(option: str):
 
     if model:
         try:
-            ans = check_text(input, option, model)
+            ans = check_text(input, model)
             strin = "Новость достоверна с вероятностью " + str(round(ans * 100)) + "%."
         except:
             strin = "Что-то не так с вашей новостью"
 
+        print(strin)
 
-if __name__ == 'main':
-    option = 'Logistic Regression'
-    # Выбрать модель из них:
+
+if __name__ == '__main__':
+    input = 'В Архангельской области прошел Форум молодых ученых "Полюс"'
+    # Ввод текста новости
+
+    option = 'CatBoost'
+    # Можно менять модель из следующих доступных:
     # ('Logistic Regression', 'Random Forest Classifier',
     # 'Support Vector Classifier', 'CatBoost')
 
-    run_model(option)
+    run_model(input, option)
